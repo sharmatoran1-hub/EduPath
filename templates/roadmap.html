@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load roadmap_tags %}
+{% block content %}
+
+<h2>Your learning roadmap</h2>
+
+<div class="card p-3 mb-3">
+<form method="post" class="row g-2">
+{% csrf_token %}
+
+<div class="col-md-4">
+<label>Skill path</label>
+<select name="skill" class="form-select">
+<option>Python</option>
+<option>Java</option>
+<option>Web Development</option>
+</select>
+</div>
+
+<div class="col-md-2">
+<label>Year</label>
+<select name="year" class="form-select">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Career goal</label>
+<input name="career_goal" class="form-control" value="{{ profile.career_goal }}">
+</div>
+
+<div class="col-md-2 align-self-end">
+<button class="btn btn-primary">Update</button>
+</div>
+
+</form>
+</div>
+
+{% for task in tasks %}
+<div class="card p-3 mb-2">
+<div class="d-flex justify-content-between">
+<div>
+<h5>{{ task.title }}</h5>
+<p class="muted mb-0">{{ task.description }}</p>
+</div>
+
+<form method="post" action="/roadmap/complete/{{ task.id }}/">
+{% csrf_token %}
+<button class="btn {% if progress|get_item:task.id %}btn-success{% else %}btn-outline-primary{% endif %}">
+Toggle
+</button>
+</form>
+</div>
+</div>
+{% empty %}
+<p>No tasks yet. Admin needs to add roadmap tasks.</p>
+{% endfor %}
+
+{% endblock %}

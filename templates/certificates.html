@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Certificates & achievements</h2>
+
+<div class="card p-4 mb-4">
+<h5>Submit an external certificate</h5>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<input class="form-control mb-2" name="course_name" placeholder="Course name" required>
+<input class="form-control mb-2" name="provider" placeholder="Provider e.g. NPTEL" required>
+<input class="form-control mb-3" type="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required>
+<button class="btn btn-primary">Upload for review</button>
+</form>
+
+<small class="muted">PDF/JPG/PNG, maximum 5 MB.</small>
+</div>
+
+{% for item in items %}
+<div class="card p-3 mb-2">
+<h5>{{ item.course_name }}</h5>
+<p>{{ item.provider }} · {{ item.status }}</p>
+<a href="{{ item.file.url }}">View submitted file</a>
+
+{% if item.extracted_text %}
+<details>
+<summary>Extracted text</summary>
+{{ item.extracted_text }}
+</details>
+{% endif %}
+</div>
+{% empty %}
+<p>No certificates submitted.</p>
+{% endfor %}
+
+<a href="/certificates/achievement/" class="btn btn-outline-primary mt-3">
+Download latest approved achievement
+</a>
+
+{% endblock %}

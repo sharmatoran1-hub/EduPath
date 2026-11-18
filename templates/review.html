@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+<h2>Review certificate</h2>
+<p>{{ cert.user.username }} · {{ cert.course_name }}</p>
+<a href="{{ cert.file.url }}">Open uploaded certificate</a>
+
+<form method="post" class="mt-3">
+{% csrf_token %}
+<button name="status" value="Approved" class="btn btn-success">Approve</button>
+<button name="status" value="Rejected" class="btn btn-danger">Reject</button>
+</form>
+</div>
+{% endblock %}

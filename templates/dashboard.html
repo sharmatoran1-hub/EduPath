@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero mb-4">
+<h1>Hello, {{ user.username }} 👋</h1>
+<p>Your academic and career journey starts here.</p>
+<a href="/roadmap/" class="btn btn-light">View my roadmap</a>
+</div>
+
+<div class="row g-3">
+<div class="col-md-4">
+<div class="card p-4">
+<p class="muted">Roadmap progress</p>
+<h2>{{ percent }}%</h2>
+<div class="progress">
+<div class="progress-bar" style="width:{{ percent }}%"></div>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-4">
+<p class="muted">Current learning path</p>
+<h3>{{ profile.interest }}</h3>
+<p>Year {{ profile.year }}</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-4">
+<p class="muted">Certificates submitted</p>
+<h2>{{ certificates.count }}</h2>
+</div>
+</div>
+</div>
+
+<div class="card p-4 mt-4">
+<h4>AI-inspired next step</h4>
+<h5>{{ next_step.title }}</h5>
+<p>{{ next_step.description }}</p>
+<a href="/roadmap/" class="btn btn-primary">Continue learning</a>
+</div>
+
+<div class="card p-4 mt-4">
+<h4>Skills to work on</h4>
+{% for gap in gaps %}
+<span class="badge text-bg-light p-2 m-1">{{ gap }}</span>
+{% empty %}
+<p>Great work! Explore an advanced project.</p>
+{% endfor %}
+</div>
+
+{% endblock %}

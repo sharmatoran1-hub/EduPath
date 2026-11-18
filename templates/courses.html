@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Recommended courses</h2>
+<p class="muted">Based on your selected path: {{ skill }}</p>
+
+<div class="row g-3">
+{% for item in items %}
+<div class="col-md-4">
+<div class="card p-3">
+<h5>{{ item.title }}</h5>
+<p>{{ item.provider }} · {{ item.skill }}</p>
+<p>{{ item.description }}</p>
+<a href="{{ item.url }}" target="_blank" rel="noopener">Visit course</a>
+</div>
+</div>
+{% empty %}
+<p>No courses added yet. Admin can add NPTEL course links.</p>
+{% endfor %}
+</div>
+{% endblock %}

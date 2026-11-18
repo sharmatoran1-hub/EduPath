@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Study Resources</h2>
+
+<form class="d-flex my-3">
+<input class="form-control me-2" name="q" value="{{ query }}" placeholder="Search subject or title">
+<button class="btn btn-primary">Search</button>
+</form>
+
+<div class="row g-3">
+{% for item in items %}
+<div class="col-md-4">
+<div class="card p-3">
+<span class="badge text-bg-primary">{{ item.category }}</span>
+<h5 class="mt-2">{{ item.title }}</h5>
+<p>{{ item.subject }} · Semester {{ item.semester }}</p>
+<a href="{{ item.file.url }}" class="btn btn-outline-primary">Open / Download</a>
+</div>
+</div>
+{% empty %}
+<p>No resources uploaded yet. Admin can add resources in Django Admin.</p>
+{% endfor %}
+</div>
+{% endblock %}
